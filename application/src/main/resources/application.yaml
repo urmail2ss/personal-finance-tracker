@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:49883/personal-finance-tracker
+    username: pft-app-user
+    password: pft-app-user-secret
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:changelog/db.changelog-master.yaml
+    default-schema: personal_finance_tracker

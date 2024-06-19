@@ -1,0 +1,129 @@
+---- Create the schema
+--CREATE SCHEMA finance_tracker;
+---- User Table
+--CREATE TABLE finance_tracker.users (
+--    user_id INT PRIMARY KEY,
+--    username VARCHAR(255) NOT NULL,
+--    password VARCHAR(255) NOT NULL,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- AccountType Table
+--CREATE TABLE finance_tracker.account_type (
+--    account_type_id INT PRIMARY KEY,
+--    type_name VARCHAR(255) NOT NULL,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- Account Table
+--CREATE TABLE finance_tracker.account (
+--    account_id INT PRIMARY KEY,
+--    user_id INT,
+--    account_name VARCHAR(255) NOT NULL,
+--    initial_balance DECIMAL(10, 2) NOT NULL,
+--    current_balance DECIMAL(10, 2) NOT NULL,
+--    account_type_id INT,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (user_id) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (account_type_id) REFERENCES finance_tracker.account_type(account_type_id),
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- CategoryType Table
+--CREATE TABLE finance_tracker.category_type (
+--    category_type_id INT PRIMARY KEY,
+--    type_name VARCHAR(255) NOT NULL,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- Category Table
+--CREATE TABLE finance_tracker.category (
+--    category_id INT PRIMARY KEY,
+--    type_id INT,
+--    category_name VARCHAR(255) NOT NULL,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (type_id) REFERENCES finance_tracker.category_type(category_type_id),
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- BudgetType Table
+--CREATE TABLE finance_tracker.budget_type (
+--    budget_type_id INT PRIMARY KEY,
+--    type_name VARCHAR(255) NOT NULL,
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- Budget Table
+--CREATE TABLE finance_tracker.budget (
+--    budget_id INT PRIMARY KEY,
+--    user_id INT,
+--    category_id INT,
+--    budget_type_id INT,
+--    amount DECIMAL(10, 2) NOT NULL,
+--    start_date DATE NOT NULL,
+--    end_date DATE, -- Nullable for one-time budgets
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (user_id) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (category_id) REFERENCES finance_tracker.category(category_id),
+--    FOREIGN KEY (budget_type_id) REFERENCES finance_tracker.budget_type(budget_type_id),
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- Assuming finance_tracker schema already exists
+--
+---- Create Transaction Table
+--CREATE TABLE finance_tracker.transaction (
+--    transaction_id INT PRIMARY KEY,
+--    user_id INT,
+--    account_id INT,
+--    category_id INT,
+--    amount DECIMAL(10, 2) NOT NULL,
+--    transaction_date DATE NOT NULL,
+--    description VARCHAR(255),
+--    created_by INT,
+--    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--    updated_by INT,
+--    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (user_id) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (account_id) REFERENCES finance_tracker.account(account_id),
+--    FOREIGN KEY (category_id) REFERENCES finance_tracker.category(category_id),
+--    FOREIGN KEY (created_by) REFERENCES finance_tracker.users(user_id),
+--    FOREIGN KEY (updated_by) REFERENCES finance_tracker.users(user_id)
+--);
+--
+---- Example: Add Indexes for better performance (if needed)
+---- CREATE INDEX idx_transaction_user ON finance_tracker.transaction(user_id);
+---- CREATE INDEX idx_transaction_account ON finance_tracker.transaction(account_id);
+---- CREATE INDEX idx_transaction_category ON finance_tracker.transaction(category_id);

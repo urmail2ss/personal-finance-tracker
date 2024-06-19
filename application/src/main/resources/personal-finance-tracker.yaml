@@ -1,0 +1,488 @@
+openapi: 3.0.0
+info:
+  title: Finance Tracker API
+  description: API for managing financial data
+  version: 1.0.0
+
+tags:
+  - name: Users
+    description: Operations related to users
+  - name: Accounts
+    description: Operations related to accounts
+  - name: Categories
+    description: Operations related to categories
+  - name: Budgets
+    description: Operations related to budgets
+  - name: Transactions
+    description: Operations related to transactions
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        username:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        account_id:
+          type: integer
+        user_id:
+          type: integer
+        account_name:
+          type: string
+        initial_balance:
+          type: number
+        current_balance:
+          type: number
+        account_type_id:
+          type: integer
+
+    Category:
+      type: object
+      properties:
+        category_id:
+          type: integer
+        type_id:
+          type: integer
+        category_name:
+          type: string
+
+    Budget:
+      type: object
+      properties:
+        budget_id:
+          type: integer
+        user_id:
+          type: integer
+        category_id:
+          type: integer
+        budget_type_id:
+          type: integer
+        amount:
+          type: number
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        user_id:
+          type: integer
+        account_id:
+          type: integer
+        category_id:
+          type: integer
+        amount:
+          type: number
+        transaction_date:
+          type: string
+          format: date
+        description:
+          type: string
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      tags: [Users]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - $ref: '#/components/schemas/User'
+                - $ref: '#/components/schemas/User'
+
+    post:
+      summary: Create a new user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+
+  /users/{userId}:
+    get:
+      summary: Get a user by ID
+      tags: [Users]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                $ref: '#/components/schemas/User'
+
+    put:
+      summary: Update a user by ID
+      tags: [Users]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+
+    delete:
+      summary: Delete a user by ID
+      tags: [Users]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+      responses:
+        '204':
+          description: User deleted successfully
+
+  /accounts:
+    get:
+      summary: Get all accounts
+      tags: [Accounts]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - $ref: '#/components/schemas/Account'
+                - $ref: '#/components/schemas/Account'
+
+    post:
+      summary: Create a new account
+      tags: [Accounts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '201':
+          description: Account created successfully
+
+  /accounts/{accountId}:
+    get:
+      summary: Get an account by ID
+      tags: [Accounts]
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the account
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                $ref: '#/components/schemas/Account'
+
+    put:
+      summary: Update an account by ID
+      tags: [Accounts]
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Account updated successfully
+
+    delete:
+      summary: Delete an account by ID
+      tags: [Accounts]
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the account
+      responses:
+        '204':
+          description: Account deleted successfully
+
+  /categories:
+    get:
+      summary: Get all categories
+      tags: [Categories]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - $ref: '#/components/schemas/Category'
+                - $ref: '#/components/schemas/Category'
+
+    post:
+      summary: Create a new category
+      tags: [Categories]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          description: Category created successfully
+
+  /categories/{categoryId}:
+    get:
+      summary: Get a category by ID
+      tags: [Categories]
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the category
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                $ref: '#/components/schemas/Category'
+
+    put:
+      summary: Update a category by ID
+      tags: [Categories]
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Category updated successfully
+
+    delete:
+      summary: Delete a category by ID
+      tags: [Categories]
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the category
+      responses:
+        '204':
+          description: Category deleted successfully
+
+  /budgets:
+    get:
+      summary: Get all budgets
+      tags: [Budgets]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - $ref: '#/components/schemas/Budget'
+                - $ref: '#/components/schemas/Budget'
+
+    post:
+      summary: Create a new budget
+      tags: [Budgets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Budget'
+      responses:
+        '201':
+          description: Budget created successfully
+
+  /budgets/{budgetId}:
+    get:
+      summary: Get a budget by ID
+      tags: [Budgets]
+      parameters:
+        - name: budgetId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the budget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                $ref: '#/components/schemas/Budget'
+
+    put:
+      summary: Update a budget by ID
+      tags: [Budgets]
+      parameters:
+        - name: budgetId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the budget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Budget'
+      responses:
+        '200':
+          description: Budget updated successfully
+
+    delete:
+      summary: Delete a budget by ID
+      tags: [Budgets]
+      parameters:
+        - name: budgetId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the budget
+      responses:
+        '204':
+          description: Budget deleted successfully
+
+  /transactions:
+    get:
+      summary: Get all transactions
+      tags: [Transactions]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - $ref: '#/components/schemas/Transaction'
+                - $ref: '#/components/schemas/Transaction'
+
+    post:
+      summary: Create a new transaction
+      tags: [Transactions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Transaction'
+      responses:
+        '201':
+          description: Transaction created successfully
+
+  /transactions/{transactionId}:
+    get:
+      summary: Get a transaction by ID
+      tags: [Transactions]
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the transaction
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                $ref: '#/components/schemas/Transaction'
+
+    put:
+      summary: Update a transaction by ID
+      tags: [Transactions]
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              $ref: '#/components/schemas/Transaction'
+      responses:
+        '200':
+          description: Transaction updated successfully
+
+    delete:
+      summary: Delete a transaction by ID
+      tags: [Transactions]
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the transaction
+      responses:
+        '204':
+          description: Transaction deleted successfully
